@@ -16,8 +16,7 @@ public inherited sharing class QuoteTriggerHelper {
 		if (!internationalQuotes.isEmpty()) {
 			for (Quote quote : internationalQuotes) {
 				if (vatWrapper.containsKey(quote.Client_Country__c)) {
-					Decimal vatRate = vatWrapper.get(quote.Client_Country__c).standard;
-					quote.VAT_Rate__c = vatRate;
+					quote.VAT_Rate__c = vatWrapper.get(quote.Client_Country__c).standard;
 				}
 			}
 			update internationalQuotes;

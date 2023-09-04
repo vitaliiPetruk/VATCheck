@@ -1,16 +1,16 @@
 public with sharing class QuoteTriggerHandler extends TriggerHandler {
 
 	protected override void afterUpdate() {
-		if (System.isFuture()) {
-			return; // This is a recursive update, let's skip
+		if (System.isFuture() || System.IsBatch()) {
+			return; // This is a recursive update or Batch, let's skip
 		}
 
 		updateVat();
 	}
 
 	protected override void afterInsert() {
-		if (System.isFuture()) {
-			return; // This is a recursive update, let's skip
+		if (System.isFuture() || System.IsBatch()) {
+			return; // This is a recursive update or Batch, let's skip
 		}
 
 		updateVat();
