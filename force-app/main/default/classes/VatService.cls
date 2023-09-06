@@ -41,11 +41,17 @@ public with sharing class VatService {
 	}
 
 	public class VatWrapper {
+		@AuraEnabled
 		public String country = '';
+		@AuraEnabled
 		public Decimal standard = 0;
+		@AuraEnabled
 		public Decimal reduced_1 = 0;
+		@AuraEnabled
 		public Decimal reduced_2 = 0;
+		@AuraEnabled
 		public Decimal super_reduced = 0;
+		@AuraEnabled
 		public Decimal parking = 0;
 	}
 }

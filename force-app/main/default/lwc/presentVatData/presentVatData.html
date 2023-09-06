@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon class="slds-m-right_x-small" icon-name="utility:tax_rate" size="small"></lightning-icon>
+            {title}
+        </h3>
+        <div class="slds-m-around_xx-small">
+            <lightning-datatable
+                    key-field="country"
+                    columns={columns}
+                    data={data}
+                    hide-checkbox-column
+            >
+            </lightning-datatable>
+        </div>
+        <div slot="footer">
+            <lightning-button variant="brand" label="Update VAT Info" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+        </div>
+    </lightning-card>
+
+</template>
