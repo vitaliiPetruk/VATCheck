@@ -1,4 +1,4 @@
-public with sharing class PresentVatDataController {
+public with sharing class PresentVatDataController  {
 
 	@AuraEnabled
 	public static VatService.VatWrapper getVatData(String quoteId) {

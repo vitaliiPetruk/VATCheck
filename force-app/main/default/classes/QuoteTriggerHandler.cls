@@ -1,7 +1,7 @@
 public with sharing class QuoteTriggerHandler extends TriggerHandler {
 
 	protected override void afterUpdate() {
-		if (System.isFuture() || System.IsBatch()) {
+		if (System.isBatch() || System.isQueueable() || System.isFuture()) {
 			return; // This is a recursive update or Batch, let's skip
 		}
 
@@ -9,7 +9,7 @@ public with sharing class QuoteTriggerHandler extends TriggerHandler {
 	}
 
 	protected override void afterInsert() {
-		if (System.isFuture() || System.IsBatch()) {
+		if (System.isBatch() || System.isQueueable() || System.isFuture()) {
 			return; // This is a recursive update or Batch, let's skip
 		}
 
@@ -17,12 +17,9 @@ public with sharing class QuoteTriggerHandler extends TriggerHandler {
 	}
 
 	public static void updateVat() {
-		Set<String> quoteIds = new Set<String>();
-		for (SObject obj : Trigger.new) {
-			quoteIds.add(obj.Id);
-		}
+		Set<Id> idSet = new Map<Id, SObject>(Trigger.new).keySet();
 
-		QuoteTriggerHelper.VATUpdate(quoteIds);
+		QuoteTriggerHelper.VATUpdate(idSet);
 	}
 }
 
