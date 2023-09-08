@@ -32,5 +32,4 @@ public with sharing class HttpHandler {
 	            HttpResponse response = new Http().send(request);
 	            return response;
 	        }
-
 }

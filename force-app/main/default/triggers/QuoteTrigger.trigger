@@ -1,3 +1,6 @@
+/**
+ * Use TriggerHandler Lib
+ */
 trigger QuoteTrigger on Quote  (
 		before insert,
 		before update,

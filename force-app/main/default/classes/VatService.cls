@@ -1,6 +1,9 @@
 public with sharing class VatService {
-	final private static String ENDPOINT = 'https://global.vatapi.com/v2/vat-rates';
+	final private static String endpoint = 'https://global.vatapi.com/v2/vat-rates';
 
+	/**
+	 * @return provides connection with endpoint to get actual VAT information for all countries
+	 */
 	public Map<String, VatWrapper> getVAT() {
 		Map<String, String> UrlParams = new Map<String, String>();
 		Map<String, String> headerParams = new Map<String, String>();
@@ -12,8 +15,8 @@ public with sharing class VatService {
 		headerParams.put('x-api-key', apiKey);
 
 		HttpResponse httpResponse
-				= HttpHandler.doHTTPRequest(ENDPOINT, 'GET', UrlParams, headerParams, null);
-		System.debug(httpResponse.getBody());
+				= HttpHandler.doHTTPRequest(endpoint, 'GET', UrlParams, headerParams, null);
+
 		Map<String, VatWrapper> toReturn = getVatMap(new JSONParse(httpResponse.getBody()));
 
 		return toReturn;

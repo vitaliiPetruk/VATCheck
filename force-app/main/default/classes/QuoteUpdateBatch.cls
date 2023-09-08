@@ -6,7 +6,7 @@ public with sharing class QuoteUpdateBatch implements Database.Batchable<SObject
 	}
 
 	public void execute(Database.BatchableContext bc, List<Quote> scope) {
-		QuoteUpdateBatchHelper.batchVATUpdate(scope);
+		QuoteUpdateBatchHelper.vatUpdate(scope);
 	}
 
 	public void finish(Database.BatchableContext bc) {

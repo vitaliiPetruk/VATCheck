@@ -1,21 +1,29 @@
 <template>
+    <div lwc:if={isLoading}>
+        <lightning-spinner
+                alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+        </lightning-spinner>
+    </div>
     <lightning-card>
         <h3 slot="title">
             <lightning-icon class="slds-m-right_x-small" icon-name="utility:tax_rate" size="small"></lightning-icon>
             {title}
         </h3>
-        <div class="slds-m-around_xx-small">
+        <div slot="actions">
+            <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh"
+                    title="Refresh"
+                    onclick={handleClick}>
+            </lightning-button-icon>
+        </div>
+        <div class="slds-p-horizontal_medium">
             <lightning-datatable
                     key-field="country"
                     columns={columns}
                     data={data}
-                    hide-checkbox-column
-            >
+                    hide-checkbox-column>
             </lightning-datatable>
         </div>
-        <div slot="footer">
-            <lightning-button variant="brand" label="Update VAT Info" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
-        </div>
     </lightning-card>
-
 </template>

@@ -1,7 +1,8 @@
 public with sharing class QuoteUpdateQueueable implements Queueable, Database.AllowsCallouts {
 	/**
-		  * if you need to call it from a trigger use this one.
-		  * System.enqueueJob(new QuoteUpdateQueueable(Trigger.new));
+	* if you need to call it from a trigger use this one.
+	 * <br>
+	* System.enqueueJob(new QuoteUpdateQueueable(Trigger.new));
 	*/
 	private List<Quote> quotesToUpdate = new List<Quote>();
 

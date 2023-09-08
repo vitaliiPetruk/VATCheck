@@ -1,5 +1,5 @@
 @IsTest
-private class QuoteVatInvocableTest {
+private class QuoteUpdateQueueableTest {
 
 	@TestSetup
 	public static void setupTestData() {
@@ -15,24 +15,25 @@ private class QuoteVatInvocableTest {
 	}
 
 	@IsTest
-	public static void testInvocableQuoteUpdate() {
+	public static void testQuoteUpdateQueueable() {
 		Test.setMock(HttpCalloutMock.class, new MockHandler(TestDataFactory.RESPONSE_JSON, 200));
+
+		List<Quote> quotesToUpdate = new List<Quote>();
 		Quote q = TestDataFactory.createQuote();
 		q.OpportunityId = [SELECT Id FROM Opportunity LIMIT 1].Id;
-		Assert.isNull(q.VAT_Rate__c);
+		insert q;
+		quotesToUpdate.add(q);
 
-		List<QuoteVatInvocable.Requests> requestList = new List<QuoteVatInvocable.Requests>();
-		QuoteVatInvocable.Requests request = new QuoteVatInvocable.Requests();
-		request.quoteRecord = q;
-		requestList.add(request);
 
 		Test.startTest();
-		List<QuoteVatInvocable.Results> results = QuoteVatInvocable.updateQuote(requestList);
+		Id queueableJobID = System.enqueueJob(new QuoteUpdateQueueable(quotesToUpdate));
 		Test.stopTest();
 
-		Assert.areNotEqual(null,results[0].quoteRecordResult.VAT_Rate__c);
-		Assert.areEqual(20,results[0].quoteRecordResult.VAT_Rate__c);
+		Quote afterUpdate = [SELECT Id, VAT_Rate__c FROM Quote LIMIT 1];
+		Assert.areEqual(20, afterUpdate.VAT_Rate__c);
 
+		AsyncApexJob job = [SELECT Status FROM AsyncApexJob WHERE Id = :queueableJobID];
+		Assert.areEqual('Completed', job.Status);
 	}
 
 }
