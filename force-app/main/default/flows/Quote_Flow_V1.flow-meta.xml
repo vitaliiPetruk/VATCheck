@@ -8,7 +8,7 @@
         <actionName>QuoteVatInvocable</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Final_Quote_Preview</targetReference>
+            <targetReference>Assignment_Quote_VAT</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -29,7 +29,7 @@
         <name>Assignment_Quote_VAT</name>
         <label>Assignment Quote VAT</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>newQuote.Price_With_VAT__c</assignToReference>
             <operator>Assign</operator>
@@ -38,7 +38,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Create_Quote</targetReference>
+            <targetReference>Final_Quote_Preview</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -163,12 +163,12 @@
         <name>Final_Quote_Preview</name>
         <label>Final Quote Preview</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>566</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Assignment_Quote_VAT</targetReference>
+            <targetReference>Create_Quote</targetReference>
         </connector>
         <fields>
             <name>Final_Quote_Preview_Text</name>
@@ -211,32 +211,19 @@
                 <name>Final_Quote_Preview_Section1_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <fieldType>ObjectProvided</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>false</isRequired>
-                    <objectFieldReference>newQuote.VAT_Rate__c</objectFieldReference>
+                    <name>VAT_Rate_Text</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;VAT Rate : &lt;/strong&gt;{!newQuote.VAT_Rate__c}&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Price_Preview</name>
-                    <dataType>Number</dataType>
-                    <defaultValue>
-                        <elementReference>newQuote.Price__c</elementReference>
-                    </defaultValue>
-                    <fieldText>Price Without VAT</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <scale>0</scale>
+                    <name>Price_Without_VAT_Text</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Price_Without_VAT : &lt;/strong&gt;{!newQuote.Price__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Price_With_VAT</name>
-                    <dataType>Number</dataType>
-                    <defaultValue>
-                        <elementReference>CalculatePriceWithVAT</elementReference>
-                    </defaultValue>
-                    <fieldText>Price With VAT</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <scale>0</scale>
+                    <name>Price_With_VAT_Text</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Price With VAT : &lt;/strong&gt;{!newQuote.Price_With_VAT__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -362,9 +349,9 @@
         <label>Show Quote</label>
         <locationX>176</locationX>
         <locationY>782</locationY>
-        <allowBack>false</allowBack>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
         <fields>
             <name>RedirectToRecord</name>
             <fieldText>&lt;p&gt;&lt;a href=&quot;/{!QuoteId}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;Click here to open Quote&lt;/a&gt;&lt;/p&gt;</fieldText>
