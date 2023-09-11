@@ -18,6 +18,6 @@ public with sharing class QuoteTriggerHandler extends TriggerHandler {
 
 	public static void updateVat() {
 		Set<Id> idSet = new Map<Id, SObject>(Trigger.new).keySet();
-		QuoteTriggerHelper.VATUpdate(idSet);
+		QuoteTriggerHelper.vatUpdate(idSet);
 	}
 }
